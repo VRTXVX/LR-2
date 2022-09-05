@@ -1,18 +1,18 @@
-import com.House.House;
 import java.util.Scanner;
+import com.house.House;
+import com.house.HouseUtils;
 
 public class Main {
     public static void main(String[] args) {
         House[] objects = choiceInputMethod();
 
-        House.printApartments(objects);
-
-        House.printApartmentsByRooms(objects);
-        House.printApartmentsByRoomsAndFloor(objects);
-        House.printApartmentsBySquare(objects);
+        HouseUtils.printApartments(objects);
+        HouseUtils.printApartmentsByRooms(objects);
+        HouseUtils.printApartmentsByRoomsAndFloor(objects);
+        HouseUtils.printApartmentsBySquare(objects);
     }
 
-    public static House[] choiceInputMethod() {
+    private static House[] choiceInputMethod() {
         int choice;
         Scanner sc;
         do {
@@ -50,9 +50,46 @@ public class Main {
 
         House[] objects = new House[kst];
 
+        int id;
+        int number;
+        int floor;
+        int rooms;
+        double square;
+        String street;
+
         for (int i = 0; i < kst; i++) {
             System.out.println("\n\t Enter data for house №" + (i + 1));
-            objects[i] = new House();
+            do {
+                try {
+                    System.out.print("\n Id >>> ");
+                    id = sc.nextInt();
+
+                    System.out.print(" Number >>> ");
+                    number = sc.nextInt();
+
+                    System.out.print(" Floor >>> ");
+                    floor = sc.nextInt();
+
+                    System.out.print(" Rooms >>> ");
+                    rooms = sc.nextInt();
+
+                    System.out.print(" Square >>> ");
+                    square = sc.nextDouble();
+
+                    System.out.print(" Street >>> ");
+                    street = sc.nextLine();
+
+                    if (id < 0 || number < 0 || floor < 0 || rooms < 0 || square < 0)
+                        System.out.println("\n Invalid input!\n");
+                    else {
+                        objects[i] = new House(id, number, floor, rooms, square, street);
+                        break;
+                    }
+                } catch (Exception e) {
+                    System.out.println("incorrect value");
+                }
+
+            } while (true);
         }
         return objects;
     }
